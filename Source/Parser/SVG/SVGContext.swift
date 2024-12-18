@@ -133,7 +133,11 @@ class SVGNodeContext: SVGContext {
     private static func mergeStyles(element: [String:String], parent: [String:String]) -> [String:String] {
         var result = parent
         for (key, value) in element {
-            result[key] = value
+            if value == "currentColor" {
+                result[key] = parent["color"] ?? "black"
+            } else {
+                result[key] = value
+            }
         }
         return result
     }
